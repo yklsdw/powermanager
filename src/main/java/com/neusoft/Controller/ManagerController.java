@@ -49,6 +49,7 @@ public class ManagerController {
     @ResponseBody
     public Object findall(Integer index,Integer size,String param,String phone,String order,String prop){
 
+        System.out.println("test git");
         ResultBean bean =null;
         try{
             //分页
