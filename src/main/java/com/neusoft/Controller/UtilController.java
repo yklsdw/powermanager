@@ -6,6 +6,7 @@ import com.neusoft.dao.ManagerMapper;
 import com.neusoft.util.ResultBean;
 import com.neusoft.util.VerifyCodeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,7 +20,8 @@ import java.util.Map;
 @Controller
 @RequestMapping("util")
 public class UtilController {
-
+    @Autowired
+    private RedisTemplate redisTemplate;
     @Autowired
     private ManagerMapper mapper;
 
@@ -46,6 +48,11 @@ public class UtilController {
                 Map map = new HashMap<>();
                 map.put("username", username);
                 map.put("password", password);
+
+                Object object= redisTemplate.opsForValue().get(username);
+                if (object==null){
+
+                }
 
                 List<Manager> list = mapper.login(map);
                 if (list != null && list.size() > 0) {

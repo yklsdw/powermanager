@@ -11,6 +11,7 @@ import com.neusoft.util.poi.Contents;
 import com.neusoft.util.poi.PoiUtil;
 import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,10 @@ public class ManagerController {
 
     @Autowired
     private ManagerRoleRFMapper managerRoleRFMapper;
+
+    @Autowired
+    private  RedisTemplate redisTemplate;
+
 
     @RequestMapping("html")
     public String page(){
@@ -184,7 +189,8 @@ public class ManagerController {
 
             if(rows>0)
             {
-
+                manager=managerMapper.selectByPrimaryKey(manager.getManagerId());
+                redisTemplate.opsForValue().set(manager.getManagerPhone(),manager);
                 bean=new ResultBean(ResultBean.Code.SUCCESS);
             }
             else

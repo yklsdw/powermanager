@@ -8,7 +8,7 @@
 
     <import resource="classpath:applicationContext-mybatis.xml"/>
     <import resource="classpath:applicationContext-springmvc.xml"/>
-
+    <import resource="classpath:applicationContext-redis.xml"/>
 
 
 </beans>
